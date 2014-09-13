@@ -29,7 +29,7 @@ BlacklistReader::BlacklistReader(const std::string& basedir) :
 
 BlacklistReader::~BlacklistReader()
 {
-	// TODO Auto-generated destructor stub
+
 }
 
 void BlacklistReader::readCategories()

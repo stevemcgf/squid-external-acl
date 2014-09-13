@@ -6,7 +6,7 @@
  */
 
 #include "blacklist/BlacklistReader.h"
-#include "blacklist/mysql/MySqlController.h"
+#include "blacklist/MySqlWriter.h"
 
 #include <iostream>
 
@@ -15,7 +15,7 @@ int main(int argc, char *argv[])
 	// EDITAR
 	blacklist::BlacklistReader bl("/home/steve/squidblacklist/blacklists");
 
-	blacklist::mysql::MySqlController db("localhost", "root", "root", "squidblacklist");
+	blacklist::MySqlWriter db("localhost", "root", "root", "squidblacklist");
 	db.clearLists();
 	db.prepareInserts();
 

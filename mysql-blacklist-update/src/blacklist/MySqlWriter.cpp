@@ -1,21 +1,19 @@
 /*
- * MySqlController.cpp
+ * MySqlWriter.cpp
  *
  *  Created on: Sep 11, 2014
  *      Author: steve
  */
 
-#include "MySqlController.h"
+#include "MySqlWriter.h"
 #include <iostream>
 #include <exception>
 #include <cstring>
 
 namespace blacklist
 {
-namespace mysql
-{
 
-MySqlController::MySqlController(const std::string& dbhost,
+MySqlWriter::MySqlWriter(const std::string& dbhost,
 		const std::string& dbuser, const std::string& dbpass,
 		const std::string& dbname)
 {
@@ -45,7 +43,7 @@ MySqlController::MySqlController(const std::string& dbhost,
 	m_stmtlookUrl = NULL;
 }
 
-MySqlController::~MySqlController()
+MySqlWriter::~MySqlWriter()
 {
 	if (m_conn)
 	{
@@ -67,7 +65,7 @@ MySqlController::~MySqlController()
 	}
 }
 
-void MySqlController::clearLists()
+void MySqlWriter::clearLists()
 {
 	mysql_query(m_conn, "DELETE FROM category");
 	mysql_query(m_conn, "DELETE FROM domain");
@@ -76,10 +74,13 @@ void MySqlController::clearLists()
 	mysql_query(m_conn, "ALTER TABLE url AUTO_INCREMENT = 1");
 }
 
-void MySqlController::prepareInserts()
+void MySqlWriter::prepareInserts()
 {
 	// BIND MYSQL
 	MYSQL_BIND bind[2];
+
+	memset(bind, 0, sizeof(bind));
+
 	bind[0].buffer_type = MYSQL_TYPE_STRING;
 	bind[0].buffer = m_string1;
 	bind[0].buffer_length = MAX_STRING_LEN;
@@ -151,7 +152,7 @@ void MySqlController::prepareInserts()
 
 }
 
-void MySqlController::insertCategory(const std::string& name,
+void MySqlWriter::insertCategory(const std::string& name,
 		const std::string& description)
 {
 	std::strncpy(m_string1, name.c_str(), MAX_STRING_LEN - 1);
@@ -165,7 +166,7 @@ void MySqlController::insertCategory(const std::string& name,
 	}
 }
 
-void MySqlController::insertDomain(const std::string& name,
+void MySqlWriter::insertDomain(const std::string& name,
 		const std::string& categories)
 {
 	std::strncpy(m_string1, name.c_str(), MAX_STRING_LEN - 1);
@@ -179,7 +180,7 @@ void MySqlController::insertDomain(const std::string& name,
 	}
 }
 
-void MySqlController::insertUrl(const std::string& name,
+void MySqlWriter::insertUrl(const std::string& name,
 		const std::string& categories)
 {
 	std::strncpy(m_string1, name.c_str(), MAX_STRING_LEN - 1);
@@ -193,5 +194,4 @@ void MySqlController::insertUrl(const std::string& name,
 	}
 }
 
-} /* namespace mysql */
 } /* namespace blacklist */

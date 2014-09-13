@@ -1,29 +1,27 @@
 /*
- * MySqlController.h
+ * MySqlWriter.h
  *
  *  Created on: Sep 11, 2014
  *      Author: steve
  */
 
-#ifndef MYSQLCONTROLLER_H_
-#define MYSQLCONTROLLER_H_
+#ifndef MYSQLWRITER_H_
+#define MYSQLWRITER_H_
 
 #include <string>
 #include <mysql/mysql.h>
 
 namespace blacklist
 {
-namespace mysql
-{
 
 const int MAX_STRING_LEN = 2048;
 
-class MySqlController
+class MySqlWriter
 {
 public:
-	MySqlController(const std::string& dbhost, const std::string& dbuser,
+	MySqlWriter(const std::string& dbhost, const std::string& dbuser,
 			const std::string& dbpass, const std::string& dbname);
-	virtual ~MySqlController();
+	virtual ~MySqlWriter();
 
 	void clearLists();
 
@@ -47,7 +45,6 @@ private:
 	long unsigned int m_stringlen2;
 };
 
-} /* namespace mysql */
 } /* namespace blacklist */
 
-#endif /* MYSQLCONTROLLER_H_ */
+#endif /* MYSQLWRITER_H_ */
