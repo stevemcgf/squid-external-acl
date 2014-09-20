@@ -223,7 +223,6 @@ bool MySqlReader::queryDomain(const std::string& domain,
 		}
 	}
 
-	std::cerr << "queryDomain domain=" << domain << " categories=" << categories << std::endl;
 	return ret;
 }
 
